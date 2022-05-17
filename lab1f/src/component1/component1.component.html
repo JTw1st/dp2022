@@ -1,0 +1,9 @@
+<button class="button" (click)="getDanimals()">Get animals</button>
+
+<ul>
+  <li *ngFor="let da of danimalsList">  
+    Title: {{da.title}}, age {{da.age}}, height: {{da.height}}, length: {{da.length}}
+  </li>
+</ul>
+
+<a href="./servlet1">View raw servlet1</a>
