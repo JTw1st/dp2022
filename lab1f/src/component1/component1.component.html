@@ -1,9 +1,27 @@
-<button class="button" (click)="getDanimals()">Get animals</button>
+<div class="gr2">
+  <div class="ec">
+    <button class="button" (click)="getDanimals()">Get animals</button>
 
-<ul>
-  <li *ngFor="let da of danimalsList">  
-    Title: {{da.title}}, age {{da.age}}, height: {{da.height}}, length: {{da.length}}
-  </li>
-</ul>
+    <ul>
+      <li *ngFor="let da of danimalsList">  
+        Title: {{da.title}}, age {{da.age}}, height: {{da.height}}, length: {{da.length}}
+      </li>
+    </ul>
 
-<a href="./servlet1">View raw servlet1</a>
+    <a href="./servlet1">View raw servlet1</a>
+  </div>
+  <div class="add">
+      <div class="addbtn">Add animals</div>
+      <div class="add-hidden" id="add-hidden"><app-add></app-add></div>
+  </div>
+  <div class="remove">
+      <div class="rmbtn">Remove animals!</div>
+      <div class="rm-hidden" id="rm-hidden"><app-rm></app-rm></div>
+  </div>
+  <div class="center">
+    <br>
+    <br>
+    <img src="https://i.imgur.com/PpAluGJ.jpg" alt="UML">
+  </div>
+</div>
+

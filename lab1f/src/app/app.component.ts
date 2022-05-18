@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Danimals } from './interfaces/danimals';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'lab1f';
+  danimalsList:Danimals[]=[];
 }

@@ -1,0 +1,9 @@
+<div >
+    <form #form1="ngForm" (ngSubmit)="addDanimals(form1.value)" class="addform">
+    <input type="text" placeholder="Animal's name" name="title" ngModel>
+    <input type="number" min="1" max="100" placeholder="Animal's age" name="age" ngModel>
+    <input type="number" min="1" max="200" placeholder="Animal's height" name="height" ngModel>
+    <input type="number" min="1" max="200" placeholder="Animal's length" name="length" ngModel>
+    <input type="submit" class="addbutton" value="Add animal">
+    </form>
+</div>
