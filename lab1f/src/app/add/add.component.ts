@@ -9,9 +9,10 @@ import { Service1Service } from '../services/service1.service';
 })
 export class AddComponent implements OnInit {
 
-  constructor(private service:Service1Service) { }
   danimalsList:Danimals[]=[];
-  danimals:Danimals = {"title":"", "age":0, "height":0,"length":0};
+
+  constructor(private service:Service1Service) { }
+
 
   ngOnInit(): void {
 
@@ -29,7 +30,6 @@ export class AddComponent implements OnInit {
   addDanimals(danimals:Danimals){
     this.service.postDanimals(danimals).subscribe(
       ()=>{
-        console.log(this.danimals);
         this.getDanimals();
       }
     )

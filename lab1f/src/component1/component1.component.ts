@@ -25,18 +25,30 @@ export class Component1Component implements OnInit {
 
   ngOnInit(): void {
 
+    this.getDanimals;
+
     let add = document.getElementsByClassName("addbtn");
     let addform = document.getElementById("add-hidden");
     let rm = document.getElementsByClassName("rmbtn");
     let rmform = document.getElementById("rm-hidden");
 
     add[0].addEventListener("click", () => {
-      addform!.style.display = "block";
-      });
-  
+      if(addform!.style.display == "block"){
+        addform!.style.display = "none";
+      }
+      else{
+        addform!.style.display = "block";
+      }
+    });
+      
     rm[0].addEventListener("click", () => {
-      rmform!.style.display = "block";
-      }); 
-
+      if(rmform!.style.display == "block"){
+        rmform!.style.display = "none";
+      }
+      else{
+        rmform!.style.display = "block";
+      }
+    });
   }
+
 }

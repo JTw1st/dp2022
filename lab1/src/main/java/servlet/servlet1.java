@@ -6,9 +6,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import crud.Lab2CrudInterface;
 import danimals.danimals;
+import danimals.Mock;
 
 /**
  * Servlet implementation class servlet1
@@ -16,6 +18,7 @@ import danimals.danimals;
 @WebServlet("/servlet1/*")
 public class servlet1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private List<danimals> lu = new Mock().getDanimalsList();
 	
 	ServletConfigInterface servletConfig;
 	Lab2CrudInterface lab2Crud;
@@ -31,15 +34,63 @@ public class servlet1 extends HttpServlet {
 	 */
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
-		out.println("["+lab2Crud.readDanimals()+"]");
+		setAccessControlHeaders(response);
+		response.setContentType("application/json");
+		response.getWriter().println(lu);
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		setAccessControlHeaders(response);
+		danimals danimals = Helpers.danimalsParse(request);
+		danimals.setId(Helpers.getNextId(lu));
+		lu.add(danimals);
+		doGet(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
+	 */
+	
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title = request.getParameter("title");
-		int age = Integer.parseInt(request.getParameter("age"));
-		float height = Float.parseFloat(request.getParameter("height"));
-		float length = Float.parseFloat(request.getParameter("length"));
-		lab2Crud.updateDanimals(new danimals(title,age,height,length));
+		setAccessControlHeaders(response);
+		danimals danimals = Helpers.danimalsParse(request);
+		int id = Integer.parseInt(request.getPathInfo().substring(1));
+		System.out.println(id);
+		response.setContentType("application/json");
+		int index = Helpers.getIndexBydanimalsId(id,lu);
+		lu.set(index,danimals);
+		doGet(request, response);
+	}
+	
+	/**
+	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
+	 */
+	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		setAccessControlHeaders(response);
+		int id = Integer.parseInt(request.getPathInfo().substring(1));
+		System.out.println(id);
+		response.setContentType("application/json");
+		int index = Helpers.getIndexBydanimalsId(id,lu);
+		lu.remove(index);
+		doGet(request, response);
+	}
+	
+
+	protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		setAccessControlHeaders(response);
+		response.setStatus(HttpServletResponse.SC_OK);
+
+	}
+	
+	private void setAccessControlHeaders(HttpServletResponse resp) {
+		
+		resp.setHeader("Access-Control-Allow-Origin", "*");
+		resp.setHeader("Access-Control-Allow-Methods", "*");
+		resp.setHeader("Access-Control-Allow-Headers", "*");
 	}
 }

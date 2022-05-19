@@ -8,17 +8,29 @@ public class danimals implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
+	private int id;
 	private String title;
 	private int age;
 	private float height;
 	private float length;
-	public danimals(String title, int age, float height, float length) {
+	public danimals(int id, String title, int age, float height, float length) {
 		super();
+		this.id = id;
 		this.title = title;
 		this.age = age;
 		this.height = height;
 		this.length = length;
+	}
+	
+	public danimals() {
+		
+	}
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getTitle() {
 		return title;
@@ -38,15 +50,15 @@ public class danimals implements Serializable{
 	public void setHeight(float height) {
 		this.height = height;
 	}
-	public float getWidth() {
+	public float getLength() {
 		return length;
 	}
-	public void setWidth(float length) {
+	public void setLength(float length) {
 		this.length = length;
 	}
 	@Override
 	public String toString() {
-		  return "{\"title\": \""+title+"\",\"age\": "+age+", \"height\": \""+height+"\",\"length\": "+length+"}";
+		  return "{\"id\": "+id+", \"title\": \""+title+"\",\"age\": "+age+", \"height\": \""+height+"\",\"length\": "+length+"}";
 	}
 	
 	

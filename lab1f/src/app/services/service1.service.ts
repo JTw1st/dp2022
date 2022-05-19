@@ -20,13 +20,12 @@ export class Service1Service {
     return this.http.post<Danimals[]>(this.url, danimals)
   }
   putDanimals(danimals:Danimals):Observable<Danimals[]>{
-    return this.http.put<Danimals[]>(this.url+"?"+"title="+danimals.title+"&"+"age="+danimals.age+"&"+"height="+danimals.height+"&"+"lenght="+danimals.length, danimals)
+    return this.http.put<Danimals[]>(this.url+"/"+danimals.id, danimals)
   }
   deleteDanimals(danimals:Danimals):Observable<Danimals[]>{
-    return this.http.delete<Danimals[]>(this.url+"/"+danimals.title)
+    return this.http.delete<Danimals[]>(this.url+"/"+danimals.id)
   }
   setList(list:Danimals[]){
     this.list.next(list);
   }
-
 }

@@ -14,6 +14,9 @@ export class RmComponent implements OnInit {
   constructor(private service:Service1Service) { }
 
 
+  ngOnInit(): void {
+    this.getDanimals();
+  }
 
   getDanimals():void{
     this.service.getDanimals().subscribe(
@@ -24,12 +27,6 @@ export class RmComponent implements OnInit {
     )
   }
   
-
-
-  ngOnInit(): void {
-    this.getDanimals();
-  }
-  
   removeDanimals(danimals:Danimals){
     this.service.deleteDanimals(danimals).subscribe(
       ()=>{
@@ -37,6 +34,5 @@ export class RmComponent implements OnInit {
       }
     )
   }
-  
 
 }
