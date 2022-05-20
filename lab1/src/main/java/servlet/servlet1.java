@@ -1,11 +1,17 @@
 package servlet;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jdbc.Connect;
+import jdbc.SqlCRUD;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import crud.Lab2CrudInterface;
@@ -18,16 +24,29 @@ import danimals.Mock;
 @WebServlet("/servlet1/*")
 public class servlet1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private List<danimals> lu = new Mock().getDanimalsList();
+	
+	LabCRUDInterface<danimals> crud = new SqlCRUD();
+
+	
+	public void init(ServletConfig config) throws ServletException {
+		// TODO Auto-generated method stub
+		crud = new SqlCRUD();
+	}
+
+	/**
+	 * @see Servlet#destroy()
+	 */
+	public void destroy() {
+		// TODO Auto-generated method stub
+		try {
+			((SqlCRUD) crud).getConnection().close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	ServletConfigInterface servletConfig;
 	Lab2CrudInterface lab2Crud;
-	
-	public servlet1() {
-		super();
-		this.servletConfig = new ServletConfig();
-		this.lab2Crud = servletConfig.getCrud();
-	}
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,7 +55,7 @@ public class servlet1 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		setAccessControlHeaders(response);
 		response.setContentType("application/json");
-		response.getWriter().println(lu);
+		response.getWriter().println(crud.read());
 	}
 
 	/**
@@ -46,8 +65,7 @@ public class servlet1 extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		setAccessControlHeaders(response);
 		danimals danimals = Helpers.danimalsParse(request);
-		danimals.setId(Helpers.getNextId(lu));
-		lu.add(danimals);
+		crud.create(danimals);
 		doGet(request, response);
 	}
 
@@ -59,10 +77,8 @@ public class servlet1 extends HttpServlet {
 		setAccessControlHeaders(response);
 		danimals danimals = Helpers.danimalsParse(request);
 		int id = Integer.parseInt(request.getPathInfo().substring(1));
-		System.out.println(id);
 		response.setContentType("application/json");
-		int index = Helpers.getIndexBydanimalsId(id,lu);
-		lu.set(index,danimals);
+		crud.update(id, danimals);
 		doGet(request, response);
 	}
 	
@@ -73,10 +89,8 @@ public class servlet1 extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		setAccessControlHeaders(response);
 		int id = Integer.parseInt(request.getPathInfo().substring(1));
-		System.out.println(id);
 		response.setContentType("application/json");
-		int index = Helpers.getIndexBydanimalsId(id,lu);
-		lu.remove(index);
+		crud.delete(id);
 		doGet(request, response);
 	}
 	
