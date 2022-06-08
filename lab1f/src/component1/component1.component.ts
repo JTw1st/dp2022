@@ -13,24 +13,26 @@ export class Component1Component implements OnInit {
   constructor(private service:Service1Service) { }
 
 
-  getDanimals():void{
-    this.service.getDanimals().subscribe(
-      (danimals)=>{
-        this.danimalsList=danimals;
-        this.service.setList(danimals);
+  getRest():void{
+    this.service.getRest().subscribe(
+      (rest1)=>{
+        this.danimalsList=rest1._embedded.danimalses;
       }
     )
   }
 
 
   ngOnInit(): void {
-
-    this.getDanimals;
-
+    
+    this.getRest();
+    
     let add = document.getElementsByClassName("addbtn");
     let addform = document.getElementById("add-hidden");
+    let upd = document.getElementsByClassName("updbtn");
+    let updform = document.getElementById("upd-hidden");
     let rm = document.getElementsByClassName("rmbtn");
     let rmform = document.getElementById("rm-hidden");
+    
 
     add[0].addEventListener("click", () => {
       if(addform!.style.display == "block"){
@@ -38,6 +40,15 @@ export class Component1Component implements OnInit {
       }
       else{
         addform!.style.display = "block";
+      }
+    });
+
+    upd[0].addEventListener("click", () => {
+      if(updform!.style.display == "block"){
+        updform!.style.display = "none";
+      }
+      else{
+        updform!.style.display = "block";
       }
     });
       

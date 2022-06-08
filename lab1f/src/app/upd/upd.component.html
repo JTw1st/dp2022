@@ -1,0 +1,12 @@
+<div class="updform" *ngFor="let da of danimalsList">
+    <div class="double"><h3>{{da.title}}</h3><button class="selectbutton" (click)="onSelect(da)">Select</button></div>
+</div>
+<div *ngIf="selectedItem">
+<form #form2="ngForm" (ngSubmit)="updateRest(form2.value)" class="updform">
+    <input type="text" placeholder="Animal's name" name="title" ngModel="{{selectedItem.title}}">
+    <input type="number" min="1" max="100" placeholder="Animal's age" name="age" ngModel="{{selectedItem.age}}">
+    <input type="number" min="1" max="200" placeholder="Animal's height" name="height" ngModel="{{selectedItem.height}}">
+    <input type="number" min="1" max="200" placeholder="Animal's length" name="length" ngModel="{{selectedItem.length}}">
+    <input type="submit" class="addbutton" value="Update animal">
+</form>
+</div>

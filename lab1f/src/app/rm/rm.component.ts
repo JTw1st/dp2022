@@ -15,22 +15,21 @@ export class RmComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getDanimals();
+    this.getRest();
   }
 
-  getDanimals():void{
-    this.service.getDanimals().subscribe(
-      (danimals)=>{
-        this.danimalsList=danimals;
-        this.service.setList(danimals);
+  getRest():void{
+    this.service.getRest().subscribe(
+      (rest1)=>{
+        this.danimalsList=rest1._embedded.danimalses;
       }
     )
   }
   
-  removeDanimals(danimals:Danimals){
-    this.service.deleteDanimals(danimals).subscribe(
+  removeRest(danimals:Danimals){
+    this.service.deleteRest(danimals).subscribe(
       ()=>{
-        this.getDanimals();
+        this.getRest();
       }
     )
   }

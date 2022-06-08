@@ -1,19 +1,23 @@
 <div class="gr2">
   <div class="ec">
-    <button class="button" (click)="getDanimals()">Get animals</button>
+    <button class="button" (click)="getRest()">Get animals</button>
     <ul>
       <li *ngFor="let da of danimalsList">  
-        id: {{da.id}}, title: {{da.title}}, age: {{da.age}}, height: {{da.height}}, length: {{da.length}}
+        title: {{da.title}}, age: {{da.age}}, height: {{da.height}}, length: {{da.length}}
       </li>
     </ul>
-    <a href="./servlet1">View raw servlet1</a>
+    <a href="http://localhost:8080/danimalses">View REST service</a>
   </div>
   <div class="add">
-    <div class="addbtn" (click)="getDanimals()">Add animals</div>
+    <div class="addbtn" (click)="getRest()">Add animals</div>
     <div class="add-hidden" id="add-hidden"><app-add></app-add></div>
   </div>
+  <div class="update">
+        <div class="updbtn" (click)="getRest()">Update animals</div>
+        <div class="upd-hidden" id="upd-hidden"><app-upd></app-upd></div>
+    </div>
   <div class="remove">
-    <div class="rmbtn" (click)="getDanimals()">Remove animals</div>
+    <div class="rmbtn" (click)="getRest()">Remove animals</div>
     <div class="rm-hidden" id="rm-hidden"><app-rm></app-rm></div>
   </div>
 </div>

@@ -30,7 +30,7 @@ ul{
 }
 
 .ec {
-    position: absolute;
+    //position: absolute;
 }
 
 .gr2{
@@ -39,11 +39,11 @@ ul{
     flex-flow: row wrap;
     justify-content: space-evenly;
 }
-.add,.remove{
+.add,.update,.remove{
     display: grid;
     grid-template-rows: 1fr auto;
 }
-.addbtn, .rmbtn{
+.addbtn, .updbtn, .rmbtn{
     background:    #073763;
     background:    linear-gradient(#073763, #f4ce7d);
     color:         #ffffff;
@@ -56,18 +56,19 @@ ul{
     font-size: 25px;
     text-align:center;
 }
-.addbtn:hover, .rmbtn:hover{
+.addbtn:hover, .updbtn:hover, .rmbtn:hover{
     cursor: pointer;
     transform: translate(-5px, -5px);
     box-shadow: 5px 5px #073763;
     transition: 0.1s;
 }
-.addbtn:active, .rmbtn:active{
+.addbtn:active, .updbtn:active, .rmbtn:active{
     cursor: pointer;
     transform: translate(1px, 1px);
     box-shadow: 0px 0px #073763;
     transition: 0s;
 }
-.add-hidden, .rm-hidden{
+.add-hidden, .upd-hidden, .rm-hidden{
     display: none;
 }
+

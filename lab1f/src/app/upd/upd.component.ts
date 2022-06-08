@@ -2,21 +2,20 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { Danimals } from '../interfaces/danimals';
 import { Service1Service } from '../services/service1.service';
 
+
 @Component({
-  selector: 'app-add',
-  templateUrl: './add.component.html',
-  styleUrls: ['./add.component.scss']
+  selector: 'app-upd',
+  templateUrl: './upd.component.html',
+  styleUrls: ['./upd.component.scss']
 })
-export class AddComponent implements OnInit {
+export class UpdComponent implements OnInit {
 
+  
   danimalsList:Danimals[]=[];
-
+  selectedItem?:Danimals;
   constructor(private service:Service1Service) { }
 
 
-  ngOnInit(): void {
-
-  }
 
   getRest():void{
     this.service.getRest().subscribe(
@@ -25,13 +24,23 @@ export class AddComponent implements OnInit {
       }
     )
   }
+  
+  onSelect(danimals:Danimals){
+    this.selectedItem=danimals;
+  }
 
-  addRest(danimals:Danimals){
-    this.service.postRest(danimals).subscribe(
+
+  ngOnInit(): void {
+    this.getRest();
+  }
+  
+  updateRest(danimals:Danimals){
+    this.service.putRest(this.selectedItem!._links.self.href, danimals).subscribe(
       ()=>{
         this.getRest();
       }
     )
   }
+  
 
 }
